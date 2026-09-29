@@ -1,0 +1,49 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.44.2
+    hooks:
+      - id: djlint-reformat-django
+      - id: djlint-django
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.4
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/psf/black
+    rev: 26.5.1
+    hooks:
+      - id: black
+        language_version: python3.14
+        args:
+          - --line-length=88
+          - --target-version=py314
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        language_version: python3
+        exclude: /tests/
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.12.6
+    hooks:
+      - id: uv-lock
+  - repo: https://github.com/osprey-oss/deptry.git
+    rev: "0.25.1"
+    hooks:
+      - id: deptry
+  - repo: local
+    hooks:
+      - id: pip-licenses
+        name: Check dependency licenses
+        description: Fail if a dependency uses a copyleft license (GPL/AGPL/LGPL family); see [tool.pip-licenses] in pyproject.toml
+        entry: uv run pip-licenses
+        language: system
+        pass_filenames: false
+        files: ^(pyproject\.toml|uv\.lock)$

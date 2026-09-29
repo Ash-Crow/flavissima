@@ -1,0 +1,67 @@
+[project]
+name = "django-template"
+version = "0.1.0"
+description = "A basic template for Django projects"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "dj-database-url>=3.1.2",
+    "django>=6.0.7",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+    "coverage>=7.15.2",
+    "deptry>=0.25.1",
+    "django-debug-toolbar>=7.0.0",
+    "djlint>=1.43.1",
+    "ipython>=9.15.0",
+    "pip-licenses>=5.5.5",
+    "pre-commit>=4.6.1",
+    "ruff>=0.15.22",
+]
+
+[tool.coverage.run]
+omit = [
+    "manage.py",
+    "config/settings_test.py",
+    "config/asgi.py",
+    "config/wsgi.py",
+    "*/__init__.py",
+    "*/migrations/*.py",
+    "*/tests/*.py",
+]
+
+[tool.djlint]
+line_break_after_multiline_tag = true
+max_blank_lines = 1
+ignore = "H006"
+indent = 2
+
+[tool.pip-licenses]
+ignore-packages = ["djlint"]
+fail-on = "GPL-2.0-only;GPL-2.0-or-later;GPL-3.0-only;GPL-3.0-or-later;AGPL-3.0-only;AGPL-3.0-or-later;LGPL-2.1-only;LGPL-2.1-or-later;LGPL-3.0-only;LGPL-3.0-or-later;GNU General Public License v2 (GPLv2);GNU General Public License v2 or later (GPLv2+);GNU General Public License v3 (GPLv3);GNU General Public License v3 or later (GPLv3+);GNU Affero General Public License v3;GNU Affero General Public License v3 or later (AGPLv3+);GNU Lesser General Public License v2 (LGPLv2);GNU Lesser General Public License v2 or later (LGPLv2+);GNU Lesser General Public License v3 (LGPLv3);GNU Lesser General Public License v3 or later (LGPLv3+)"
+# djlint is GPL-3.0-or-later but is a dev-only lint tool, never bundled into projects built from this template.
+
+[tool.pyright]
+reportAttributeAccessIssue = false # too many false positives with Django models
+reportIncompatibleVariableOverride = false # too many false positives with Django models
+
+[tool.ruff]
+extend-exclude = [
+    ".pyenv",
+    ".pytest_cache",
+    ".vscode",
+    "build",
+    "site-packages",
+    "migrations",
+]
+
+[tool.ruff.lint]
+ignore = ["RUF012"]
+# RUF012 Mutable default value for class attribute
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
