@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-contentpage{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block content %}
+  <section class="hero-bg relative overflow-hidden bg-gradient-to-b from-[#f1f5ee] to-white py-16 lg:py-24">
+    <div class="mx-auto max-w-310 px-6">
+      {% for block in page.hero %}
+        {% include_block block %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-310 px-6">
+    {% for block in page.body %}
+      <section>
+        {% include_block block %}
+      </section>
+    {% endfor %}
+  </div>
+{% endblock content %}

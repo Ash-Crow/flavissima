@@ -31,4 +31,4 @@ jobs:
         uv run python manage.py test
     - name: 💎 Run quality checks
       run: |
-        uv run pre-commit run --all-files
+        uv run prek run --all-files

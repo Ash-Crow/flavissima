@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@source "../../../templates";
+@source not "./daisyui{,*}.mjs";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+}
+
+@plugin "./daisyui.mjs" {
+  themes: maisondouce --default, maisondouce-dark;
+}
+
+@plugin "./daisyui-theme.mjs" {
+  name: "maisondouce";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #ffffff;
+  --color-base-200: #f8fafc;
+  --color-base-300: #f1f5ee;
+  --color-base-content: #0f172a;
+  --color-primary: #7a9472;
+  --color-primary-content: #ffffff;
+  --color-secondary: #6d8866;
+  --color-secondary-content: #ffffff;
+  --color-accent: #5f7a58;
+  --color-accent-content: #ffffff;
+  --color-neutral: #0f172a;
+  --color-neutral-content: #ffffff;
+  --color-info: #6d8866;
+  --color-info-content: #ffffff;
+  --color-success: #7a9472;
+  --color-warning: #d97706;
+  --color-error: #ef4444;
+  --radius-selector: 2rem;
+  --radius-field: 0.7rem;
+  --radius-box: 1.25rem;
+}
+
+@plugin "./daisyui-theme.mjs" {
+  name: "maisondouce-dark";
+  color-scheme: dark;
+  --color-base-100: #141a17;
+  --color-base-200: #1b2320;
+  --color-base-300: #243029;
+  --color-base-content: #e6ede4;
+  --color-primary: #9db597;
+  --color-primary-content: #0e1512;
+  --color-secondary: #8aa583;
+  --color-secondary-content: #0e1512;
+  --color-accent: #b3c9ad;
+  --color-accent-content: #0e1512;
+  --color-neutral: #1e2b26;
+  --color-neutral-content: #e6ede4;
+  --color-info: #9db597;
+  --color-info-content: #0e1512;
+  --color-success: #9db597;
+  --color-warning: #e0a94a;
+  --color-error: #f27575;
+  --radius-selector: 2rem;
+  --radius-field: 0.7rem;
+  --radius-box: 1.25rem;
+}
+
+@import "./custom.css";

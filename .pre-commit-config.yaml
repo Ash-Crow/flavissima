@@ -2,20 +2,22 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.44.2
+    rev: v1.46.3
     hooks:
       - id: djlint-reformat-django
       - id: djlint-django
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.4
+    rev: v0.16.9
     hooks:
-      - id: ruff
+      - id: ruff-check
         args: [--fix, --exit-non-zero-on-fix]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
       - id: end-of-file-fixer
+        exclude: ^flavissima/static/flavissima/css/daisyui(-theme)?\.mjs$
       - id: trailing-whitespace
+        exclude: ^flavissima/static/flavissima/css/daisyui(-theme)?\.mjs$
   - repo: https://github.com/psf/black
     rev: 26.5.1
     hooks:
@@ -31,15 +33,17 @@ repos:
         language_version: python3
         exclude: /tests/
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.12.6
+    rev: "0.12.21"
     hooks:
       - id: uv-lock
-  - repo: https://github.com/osprey-oss/deptry.git
-    rev: "0.25.1"
-    hooks:
-      - id: deptry
   - repo: local
     hooks:
+      - id: deptry
+        name: deptry
+        entry: uv run deptry .
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: pip-licenses
         name: Check dependency licenses
         description: Fail if a dependency uses a copyleft license (GPL/AGPL/LGPL family); see [tool.pip-licenses] in pyproject.toml

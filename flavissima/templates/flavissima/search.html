@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags %}
+
+{% block title %}
+  {% translate "Search" %}
+{% endblock %}
+
+{% block content %}
+  <section class="mx-auto max-w-[1240px] px-4 py-16">
+    <h1 class="font-display text-3xl font-extrabold tracking-tight">{% translate "Search" %}</h1>
+
+    <form action="{% url 'search' %}"
+          method="get"
+          role="search"
+          class="mt-6 flex gap-2">
+      <input type="search"
+             name="query"
+             value="{{ search_query }}"
+             class="input input-bordered w-full max-w-md"
+             placeholder="{% translate 'Search' %}"
+             aria-label="{% translate 'Search' %}">
+      <button type="submit" class="btn btn-primary">{% translate "Search" %}</button>
+    </form>
+
+    {% if search_query %}
+      {% if search_results %}
+        <ul class="mt-10 space-y-6">
+          {% for result in search_results %}
+            <li>
+              <a href="{% pageurl result %}"
+                 class="font-display text-lg font-bold text-primary hover:underline">{{ result.title }}</a>
+              {% if result.search_description %}
+                <p class="mt-1 text-sm text-slate-500">{{ result.search_description }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {% if search_results.paginator.num_pages > 1 %}
+          <div class="join mt-10">
+            {% if search_results.has_previous %}
+              <a href="?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}"
+                 class="btn join-item">« {% translate "Previous" %}</a>
+            {% endif %}
+            <span class="btn btn-disabled join-item">{{ search_results.number }} / {{ search_results.paginator.num_pages }}</span>
+            {% if search_results.has_next %}
+              <a href="?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}"
+                 class="btn join-item">{% translate "Next" %} »</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <p class="mt-10 text-slate-500">{% blocktranslate %}No results found for “{{ search_query }}”.{% endblocktranslate %}</p>
+      {% endif %}
+    {% endif %}
+  </section>
+{% endblock %}
