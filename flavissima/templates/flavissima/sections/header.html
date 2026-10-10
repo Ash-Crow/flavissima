@@ -1,0 +1,155 @@
+{% load i18n static wagtailimages_tags %}
+{% with site_settings=settings.site_settings.FlavissimaSiteSetting %}
+  <header id="header"
+          class="sticky top-0 z-[100] border-b border-transparent bg-white/90 backdrop-blur-lg transition-all">
+    <div class="navbar mx-auto max-w-[1240px] px-4">
+      <!-- Logo -->
+      <div class="navbar-start">
+        <a href="/" class="flex items-center gap-2.5">
+          {% if site_settings.site_logo_file %}
+            {% image site_settings.site_logo_file height-72 class="h-9 w-auto" alt=site_settings.site_title %}
+          {% else %}
+            <img src="{% static 'flavissima/img/logo.svg' %}"
+                 class="h-9 w-9"
+                 alt="{{ site_settings.site_title|default:'Flavissima' }}">
+          {% endif %}
+          <span class="flex flex-col leading-tight">
+            <strong class="flex items-center gap-2 font-display text-lg font-extrabold tracking-tight text-base-content">
+              {{ site_settings.site_title }}
+              {% if site_settings.beta_tag %}<span class="badge badge-primary badge-sm px-2.5 font-bold tracking-wide">BETA</span>{% endif %}
+            </strong>
+            {% if site_settings.site_tagline %}
+              <em class="text-[11px] not-italic text-slate-500">{{ site_settings.site_tagline }}</em>
+            {% endif %}
+          </span>
+        </a>
+      </div>
+
+      <!-- Liens (desktop) -->
+      <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal gap-1 px-1 text-[14.5px] font-medium">
+          <li><a href="#manifeste" class="rounded-lg">Le projet</a></li>
+          <li>
+            <details>
+              <summary class="rounded-lg">Notre approche</summary>
+              <ul class="z-[99] w-72 rounded-2xl bg-white p-2 shadow-2xl">
+                <li><a href="#features" class="flex-col items-start gap-0"><strong class="font-display text-sm">Les 3 piliers</strong><span class="text-xs text-slate-500">Pricing, hospitalité, conformité</span></a></li>
+                <li><a href="#experience" class="flex-col items-start gap-0"><strong class="font-display text-sm">Expérience voyageurs</strong><span class="text-xs text-slate-500">Panier d'accueil, avis 5 étoiles</span></a></li>
+                <li><a href="#howitworks" class="flex-col items-start gap-0"><strong class="font-display text-sm">Comment on travaille</strong><span class="text-xs text-slate-500">4 étapes simples</span></a></li>
+                <li><a href="#staging" class="flex-col items-start gap-0"><strong class="font-display text-sm">Aménagement signature</strong><span class="text-xs text-slate-500">Home staging clé en main</span></a></li>
+                <li><a href="#tech" class="flex-col items-start gap-0"><strong class="font-display text-sm">Outils & technologie</strong><span class="text-xs text-slate-500">L'automatisation au service de l'humain</span></a></li>
+                <li><a href="#faq" class="flex-col items-start gap-0"><strong class="font-display text-sm">Questions fréquentes</strong><span class="text-xs text-slate-500">Toutes les réponses</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary class="rounded-lg">Pour qui</summary>
+              <ul class="z-[99] w-72 rounded-2xl bg-white p-2 shadow-2xl">
+                <li><a href="#moyenne" class="flex-col items-start gap-0"><strong class="font-display text-sm">Moyenne durée</strong><span class="text-xs text-slate-500">Bail mobilité, cadres en mission</span></a></li>
+                <li><a href="#features" class="flex-col items-start gap-0"><strong class="font-display text-sm">Courte durée</strong><span class="text-xs text-slate-500">Airbnb, séjours touristiques</span></a></li>
+                <li><a href="#staging" class="flex-col items-start gap-0"><strong class="font-display text-sm">Aménagement seul</strong><span class="text-xs text-slate-500">Sans gestion confiée</span></a></li>
+                <li><a href="#experience" class="flex-col items-start gap-0"><strong class="font-display text-sm">Propriétaires absents</strong><span class="text-xs text-slate-500">Gestion à distance, à l'étranger</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="#pricing" class="rounded-lg">Tarif</a></li>
+          <li><a href="#about" class="rounded-lg">À propos</a></li>
+        </ul>
+      </div>
+
+      <!-- CTA + burger -->
+      <div class="navbar-end gap-2">
+        {% if site_settings.search_bar %}
+          <form action="{% url 'search' %}"
+                method="get"
+                role="search"
+                class="hidden md:block">
+            <input type="search"
+                   name="query"
+                   value="{{ search_query|default:'' }}"
+                   class="input input-sm input-bordered w-44"
+                   placeholder="{% translate 'Search' %}"
+                   aria-label="{% translate 'Search' %}">
+          </form>
+        {% endif %}
+        <button id="themeToggle"
+                type="button"
+                class="btn btn-ghost btn-square"
+                aria-label="Changer de thème"
+                title="Changer de thème">
+          <svg class="sun-i h-5 w-5"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg class="moon-i hidden h-5 w-5"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        {% if site_settings.header_login_button and not request.user.is_authenticated %}
+          <a href="{% url 'wagtailadmin_login' %}"
+             class="btn btn-ghost btn-sm hidden sm:inline-flex">{% translate "Log in" %}</a>
+        {% endif %}
+        <a href="#contact-form"
+           class="btn btn-primary btn-sm hidden shadow-lg shadow-primary/25 sm:inline-flex md:btn-md">
+          Estimation gratuite <span class="transition-transform group-hover:translate-x-1">→</span>
+        </a>
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost btn-square">
+            <svg class="h-6 w-6"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 stroke-linecap="round">
+              <line x1="3" y1="7" x2="21" y2="7" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="17" x2="21" y2="17" />
+            </svg>
+          </label>
+          <ul tabindex="0"
+              class="menu dropdown-content z-[101] mt-3 w-64 rounded-2xl bg-white p-2 shadow-2xl">
+            {% if site_settings.search_bar %}
+              <li class="mb-2 md:hidden">
+                <form action="{% url 'search' %}" method="get" role="search" class="p-0">
+                  <input type="search"
+                         name="query"
+                         value="{{ search_query|default:'' }}"
+                         class="input input-sm input-bordered w-full"
+                         placeholder="{% translate 'Search' %}"
+                         aria-label="{% translate 'Search' %}">
+                </form>
+              </li>
+            {% endif %}
+            <li><a href="#manifeste">Le projet</a></li>
+            <li><a href="#features">Les 3 piliers</a></li>
+            <li><a href="#experience">Expérience voyageurs</a></li>
+            <li><a href="#howitworks">Comment on travaille</a></li>
+            <li><a href="#moyenne">Moyenne durée</a></li>
+            <li><a href="#staging">Aménagement</a></li>
+            <li><a href="#pricing">Tarif</a></li>
+            <li><a href="#about">À propos</a></li>
+            {% if site_settings.header_login_button and not request.user.is_authenticated %}
+              <li class="sm:hidden"><a href="{% url 'wagtailadmin_login' %}">{% translate "Log in" %}</a></li>
+            {% endif %}
+            <li class="mt-2"><a href="#contact-form" class="btn btn-primary btn-sm">Estimation gratuite →</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <progress id="scrollProgress"
+              class="progress progress-primary absolute bottom-0 left-0 h-0.5 w-full rounded-none"
+              value="0"
+              max="100"></progress>
+  </header>
+{% endwith %}

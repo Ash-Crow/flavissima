@@ -1,0 +1,15 @@
+{
+  "name": "flavissima",
+  "private": true,
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "scripts": {
+    "css:watch": "npx @tailwindcss/cli -i ./flavissima/static/flavissima/css/input.css -o ./flavissima/static/flavissima/css/flavissima.css --watch",
+    "css:minify": "npx @tailwindcss/cli -i ./flavissima/static/flavissima/css/input.css -o ./flavissima/static/flavissima/css/flavissima.css --minify"
+  },
+  "engines": {
+    "npm": ">=11.10.0"
+  }
+}

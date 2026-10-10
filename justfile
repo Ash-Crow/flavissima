@@ -21,12 +21,13 @@ django +command:
 collectstatic:
     just django collectstatic --noinput
 
+alias csu := createsuperuser
 # Create a superuser
 [group('Django')]
 createsuperuser:
     just django createsuperuser
 
-alias mm:= makemigrations
+alias mm := makemigrations
 # Create missing migrations
 [group('Django')]
 makemigrations app="":
@@ -75,7 +76,7 @@ check +apps="":
 # Run a global pre-commit check
 [group('Code audit')]
 quality:
-    uv run pre-commit run --all-files
+    uv run prek run --all-files
 
 # Check that all imported packages are declared as dependencies (and vice versa)
 [group('Code audit')]
@@ -87,6 +88,16 @@ deps-check:
 licenses-check:
     uv run pip-licenses
 
+# Build the Tailwind CSS
+[group('Front')]
+css-minify:
+    npm run css:minify
+
+# Watch live changes in the CSS
+[group('Front')]
+css-watch:
+    npm run css:watch
+
 # Generate a secret key
 [group('Utils')]
 generate_secret_key:
@@ -96,4 +107,5 @@ generate_secret_key:
 [group('Utils')]
 upgrade:
     uv lock --upgrade
-    uv run pre-commit autoupdate
+    uv run prek update --cooldown-days 7
+    npm update

@@ -1,15 +1,13 @@
-# Django template
+# Flavissima
 
-Django template, allowing to create a new site based on my favourite Django initial configuration, using the [twelve-factor methodology](https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology).
+![Logo](flavissima/static/flavissima/img/logo.svg)
 
-A few details:
+Flavissima aims at creating a [Wagtail](https://wagtail.org/)-based CMS with components based on [DaisyUI](https://daisyui.com/).
 
-- The project is always called `config`. This helps locating the settings file when navigating between various Django websites, see [this article](https://dev.to/alansomathew/django-project-structure-best-practices-a-production-ready-guide-3io3) for the reasoning ;
-- Dependencies are managed through [uv](https://docs.astral.sh/uv/) ;
-- Commands are managed through [just](https://just.systems/man/en/).
-- Pre-commit hooks control various aspects of the quality of the code. In particular:
-  - [black](https://pypi.org/project/black/) and [ruff](https://docs.astral.sh/ruff/) are used for linting Python code
-  - [djLint](https://djlint.com/) is used for linting HTML code
-  - [bandit](https://pypi.org/project/bandit/) is used to check for security issues
-  - [deptry](https://deptry.com/) is used to check for dependency issues
-- Config settings are defined through environment variables.
+## Requirements
+
+- [uv](https://docs.astral.sh/uv/) >= 0.9.17
+- [npm](https://www.npmjs.com/) >= 11.10.0
+- [just](https://just.systems/) >= 1.27.0
+
+As a supply-chain safety measure, uv and npm only install package versions released at least 7 days ago (see `exclude-newer` in `pyproject.toml` and `min-release-age` in `.npmrc`), and `just upgrade` only bumps pre-commit hooks to releases at least 7 days old (via `prek update --cooldown-days 7`).

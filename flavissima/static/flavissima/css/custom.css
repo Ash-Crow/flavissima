@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("../fonts/inter-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../fonts/plus-jakarta-sans-variable.woff2") format("woff2");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #7a9472 0%, #4a6044 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+header.scrolled {
+  border-bottom-color: rgb(226 232 240);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, .04);
+}
+
+/* Adaptations mode sombre : le contenu utilise des couleurs codées en dur
+   (bg-white, slate, verts pâles) ; on les remappe vers les tokens du thème
+   quand le thème sombre est actif. */
+[data-theme="maisondouce-dark"] .text-gradient {
+  background: linear-gradient(135deg, #b3c9ad 0%, #9db597 100%);
+}
+
+[data-theme="maisondouce-dark"] .bg-white { background-color: var(--color-base-100) !important; }
+[data-theme="maisondouce-dark"] .bg-white\/90 { background-color: color-mix(in oklab, var(--color-base-100) 90%, transparent) !important; }
+[data-theme="maisondouce-dark"] .bg-white\/95 { background-color: color-mix(in oklab, var(--color-base-100) 95%, transparent) !important; }
+
+[data-theme="maisondouce-dark"] .text-slate-600 { color: color-mix(in oklab, var(--color-base-content) 72%, transparent) !important; }
+[data-theme="maisondouce-dark"] .text-slate-500 { color: color-mix(in oklab, var(--color-base-content) 60%, transparent) !important; }
+[data-theme="maisondouce-dark"] .text-slate-400 { color: color-mix(in oklab, var(--color-base-content) 50%, transparent) !important; }
+
+[data-theme="maisondouce-dark"] .border-slate-100 { border-color: color-mix(in oklab, var(--color-base-content) 10%, transparent) !important; }
+[data-theme="maisondouce-dark"] .border-slate-200 { border-color: color-mix(in oklab, var(--color-base-content) 15%, transparent) !important; }
+
+[data-theme="maisondouce-dark"] .bg-\[\#e8efe4\] { background-color: color-mix(in oklab, var(--color-primary) 16%, transparent) !important; }
+[data-theme="maisondouce-dark"] .bg-\[\#d5e0cf\] { background-color: color-mix(in oklab, var(--color-primary) 50%, transparent) !important; }
+[data-theme="maisondouce-dark"] .text-\[\#4a6044\] { color: var(--color-primary) !important; }
+
+[data-theme="maisondouce-dark"] header.scrolled {
+  border-bottom-color: color-mix(in oklab, var(--color-base-content) 12%, transparent);
+  box-shadow: none;
+}
+
+[data-theme="maisondouce-dark"] header {
+  background-color: color-mix(in oklab, var(--color-base-100) 90%, transparent) !important;
+}
+
+[data-theme="maisondouce-dark"] .hero-bg {
+  background: linear-gradient(180deg, var(--color-base-200) 0%, var(--color-base-100) 100%) !important;
+}
+[data-theme="maisondouce-dark"] .hero-halo {
+  opacity: .4;
+}
